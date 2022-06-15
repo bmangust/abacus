@@ -1,0 +1,38 @@
+.Board {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.Row {
+  position: relative;
+}
+
+.TopStones {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0.9rem;
+  left: 3px;
+  height: 5rem;
+}
+
+.BottomStones {
+  display: flex;
+  flex-direction: column-reverse;
+  position: absolute;
+  top: 6.5rem;
+  left: 3px;
+  height: 11.8rem;
+}
+
+.active {
+  margin-top: auto;
+}
+
+.topValue {
+  position: absolute;
+  top: -2px;
+  color: white;
+}

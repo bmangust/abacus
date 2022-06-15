@@ -43,7 +43,7 @@ class Board {
     numberOfRows,
     state,
     topStones = 1,
-    bottomStones = 5,
+    bottomStones = 4,
   }: BoardProps) {
     console.log({ state, rows: numberOfRows || this.numberOfRows });
     this.state = state || 0;
@@ -81,4 +81,4 @@ class Board {
   }
 }
 
-export const board = new Board({ state: 569, numberOfRows: 4, topStones: 2 });
+export const board = new Board({ state: 13, numberOfRows: 4, topStones: 1 });
