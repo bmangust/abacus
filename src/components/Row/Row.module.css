@@ -21,10 +21,6 @@
   height: 11.8rem;
 }
 
-.active {
-  margin-top: auto;
-}
-
 .topValue {
   position: absolute;
   top: -2px;

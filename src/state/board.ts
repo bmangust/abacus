@@ -1,21 +1,29 @@
 import { makeAutoObservable } from "mobx";
 import { Row } from "./row";
 
+export enum STYLES {
+  "brown" = 1,
+  "cyan" = 2,
+}
+
 export interface BoardProps {
   numberOfRows?: number;
   state?: number;
   topStones?: 0 | 1 | 2;
   bottomStones?: number;
+  style?: STYLES;
 }
 
 class Board {
   state: number;
   rows: Row[];
+  style: number;
   constructor({
     numberOfRows,
     state,
     topStones = 1,
     bottomStones = 4,
+    style = STYLES.brown,
   }: BoardProps) {
     console.log({ state, rows: numberOfRows || this.numberOfRows });
     this.state = state || 0;
@@ -27,9 +35,11 @@ class Board {
           value: Math.floor(
             (this.state % Math.pow(10, i + 1)) / Math.pow(10, i)
           ),
+          style,
         })
     );
     this.state = state || 0;
+    this.style = style;
     makeAutoObservable(this);
   }
 
@@ -44,6 +54,11 @@ class Board {
     return rows;
   }
 
+  updateStyle(style: STYLES) {
+    this.style = style;
+    this.rows.forEach((row) => row.updateStyle(style));
+  }
+
   add(value: number) {
     this.state += value;
   }
@@ -53,4 +68,9 @@ class Board {
   }
 }
 
-export const board = new Board({ state: 13, numberOfRows: 4, topStones: 1 });
+export const board = new Board({
+  state: 13,
+  numberOfRows: 4,
+  topStones: 1,
+  style: STYLES.cyan,
+});

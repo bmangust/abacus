@@ -1,20 +1,24 @@
 import { makeAutoObservable } from "mobx";
+import { STYLES } from "./board";
 
 export interface RowProps {
   topStones?: 0 | 1 | 2;
-  bottomStones?: number;
+  bottomStones: number;
   value: number;
+  style?: number;
 }
 
 export class Row {
   topStones: 0 | 1 | 2;
   bottomStones: number;
   value: number;
-  constructor({ topStones = 1, bottomStones, value }: RowProps) {
+  style: number;
+  constructor({ topStones = 1, bottomStones, value, style = 1 }: RowProps) {
     this.topStones = topStones;
-    this.bottomStones = bottomStones || topStones * 5 || 5;
+    this.bottomStones = bottomStones;
     if (value > 10) throw new Error(`Value ${value} is more than 10`);
     this.value = value;
+    this.style = style;
     makeAutoObservable(this);
   }
 
@@ -26,5 +30,9 @@ export class Row {
     return this.topStones
       ? Math.floor(this.value % this.bottomStones)
       : this.value;
+  }
+
+  updateStyle(style: STYLES) {
+    this.style = style;
   }
 }
