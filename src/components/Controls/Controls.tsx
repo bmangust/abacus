@@ -20,6 +20,20 @@ const Controls = observer(() => {
   return (
     <div className={css.wrapper}>
       <div className={css.block}>
+        <label htmlFor="theme" className={css.label}>
+          Theme
+        </label>
+        <select
+          name="theme"
+          className={`${css.input} ${css.select}`}
+          value={board.style}
+          onChange={handleChangeTheme}
+        >
+          <option value={STYLES.brown}>brown</option>
+          <option value={STYLES.cyan}>cyan</option>
+        </select>
+      </div>
+      <div className={css.block}>
         <label htmlFor="value" className={css.label}>
           Value
         </label>
@@ -30,20 +44,6 @@ const Controls = observer(() => {
           value={board.value}
           onChange={handleChangeValue}
         />
-      </div>
-      <div className={css.block}>
-        <label htmlFor="theme" className={css.label}>
-          Theme
-        </label>
-        <select
-          name="theme"
-          className={css.input}
-          value={board.style}
-          onChange={handleChangeTheme}
-        >
-          <option value={STYLES.brown}>brown</option>
-          <option value={STYLES.cyan}>cyan</option>
-        </select>
       </div>
       <div className={css.block}>
         <label htmlFor="numberOfRows" className={css.label}>

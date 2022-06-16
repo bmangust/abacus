@@ -1,6 +1,9 @@
 .wrapper {
-  margin-top: 1rem;
-  text-align: center;
+  margin: 0 auto;
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .block {
@@ -18,4 +21,8 @@
   border: 1px solid black;
   outline: none;
   width: 10rem;
+}
+
+.select {
+  width: 11.5rem;
 }
