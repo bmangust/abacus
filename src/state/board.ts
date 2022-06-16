@@ -25,7 +25,7 @@ class Board {
     this.value = props.value || 0;
     this.numberOfRows = Math.max(
       props.numberOfRows || 0,
-      this.getNumberOfRows()
+      this.getNumberOfRows(this.value)
     );
     this.topStones = props.topStones;
     this.bottomStones = props.bottomStones;
@@ -47,42 +47,45 @@ class Board {
   }
 
   /** return number of digits of board.value */
-  getNumberOfRows() {
+  getNumberOfRows(value: number) {
     let rows = 1;
-    let value = this.value;
-    while (value > 10) {
+    while (value >= 10) {
       rows += 1;
       value = Math.floor(value / 10);
     }
+    console.log({ rows });
     return rows;
   }
 
-  updateStyle(style: STYLES) {
+  setNumberOfRows(n: number) {
+    // Don't compare with this.numberOfRows here.
+    // User may decrease numberOfRows to 1 and then restore.
+    // Value won't change
+    if (n < 1) return;
+    this.rows = this.getRows({
+      ...this,
+      numberOfRows: n,
+    });
+    this.numberOfRows = n;
+  }
+
+  setStyle(style: STYLES) {
     this.style = style;
     this.rows.forEach((row) => row.updateStyle(style));
   }
 
   setValue(value: number) {
+    if (value < 0) return;
     this.value = value;
+    this.numberOfRows = Math.max(
+      this.numberOfRows,
+      this.getNumberOfRows(value)
+    );
+    console.log(this.numberOfRows);
     this.rows = this.getRows({
       ...this,
       value,
     });
-  }
-
-  setNumberOfRows(n: number) {
-    this.rows = this.getRows({
-      ...this,
-      numberOfRows: n,
-    });
-  }
-
-  add(value: number) {
-    this.value += value;
-  }
-
-  subtract(value: number) {
-    this.value -= value;
   }
 }
 

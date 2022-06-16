@@ -5,10 +5,13 @@ import css from "./Controls.module.css";
 
 const Controls = observer(() => {
   const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
-    board.setValue(+e.currentTarget.value);
+    if (e.currentTarget.name === "value")
+      board.setValue(+e.currentTarget.value);
+    else if (e.currentTarget.name === "numberOfRows")
+      board.setNumberOfRows(+e.currentTarget.value);
   };
   const handleChangeTheme = (e: ChangeEvent<HTMLSelectElement>) => {
-    board.updateStyle(+e.currentTarget.value);
+    board.setStyle(+e.currentTarget.value);
   };
   return (
     <div className={css.wrapper}>
@@ -37,6 +40,18 @@ const Controls = observer(() => {
           <option value={STYLES.brown}>brown</option>
           <option value={STYLES.cyan}>cyan</option>
         </select>
+      </div>
+      <div className={css.block}>
+        <label htmlFor="numberOfRows" className={css.label}>
+          Number of rows
+        </label>
+        <input
+          name="numberOfRows"
+          className={css.input}
+          type="number"
+          value={board.numberOfRows}
+          onChange={handleChangeValue}
+        />
       </div>
     </div>
   );
