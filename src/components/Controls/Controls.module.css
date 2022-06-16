@@ -1,0 +1,21 @@
+.wrapper {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.block {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.label {
+  margin-right: 0.5rem;
+}
+
+.input {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  outline: none;
+  width: 10rem;
+}

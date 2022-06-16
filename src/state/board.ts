@@ -89,5 +89,7 @@ class Board {
 export const board = new Board({
   value: 123456789,
   numberOfRows: 4,
+  topStones: 2,
+  bottomStones: 5,
   style: STYLES.cyan,
 });

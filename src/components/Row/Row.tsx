@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite";
 import type { Row as RowType } from "../../state/row";
 import Stone from "../Stone/Stone";
 import css from "./Row.module.css";
@@ -6,7 +7,7 @@ type Props = {
   row: RowType;
 };
 
-const Row = ({ row }: Props) => {
+const Row = observer(({ row }: Props) => {
   return (
     <div className={css.Row}>
       <div className={css.topValue}>
@@ -39,6 +40,6 @@ const Row = ({ row }: Props) => {
       </div>
     </div>
   );
-};
+});
 
 export default Row;
