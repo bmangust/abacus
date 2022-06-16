@@ -53,7 +53,6 @@ class Board {
       rows += 1;
       value = Math.floor(value / 10);
     }
-    console.log({ rows });
     return rows;
   }
 
@@ -62,11 +61,8 @@ class Board {
     // User may decrease numberOfRows to 1 and then restore.
     // Value won't change
     if (n < 1) return;
-    this.rows = this.getRows({
-      ...this,
-      numberOfRows: n,
-    });
     this.numberOfRows = n;
+    this.rows = this.getRows({ ...this });
   }
 
   setStyle(style: STYLES) {
@@ -81,11 +77,13 @@ class Board {
       this.numberOfRows,
       this.getNumberOfRows(value)
     );
-    console.log(this.numberOfRows);
-    this.rows = this.getRows({
-      ...this,
-      value,
-    });
+    this.rows = this.getRows({ ...this });
+  }
+
+  setTopStones(n: number) {
+    if (n !== 1 && n !== 2) return;
+    this.topStones = n;
+    this.rows = this.getRows({ ...this });
   }
 }
 
