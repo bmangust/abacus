@@ -27,8 +27,8 @@ class Board {
       props.numberOfRows || 0,
       this.getNumberOfRows(this.value)
     );
-    this.topStones = props.topStones;
-    this.bottomStones = props.bottomStones;
+    this.topStones = props.topStones || 1;
+    this.bottomStones = props.bottomStones || 4;
     this.style = props.style || STYLES.brown;
     this.rows = this.getRows(this);
     makeAutoObservable(this);
@@ -85,12 +85,16 @@ class Board {
     this.topStones = n;
     this.rows = this.getRows({ ...this });
   }
+
+  setBottomStones(n: number) {
+    if (n < 0 || n > 5) return;
+    this.bottomStones = n;
+    this.rows = this.getRows({ ...this });
+  }
 }
 
 export const board = new Board({
   value: 123456789,
   numberOfRows: 4,
-  topStones: 2,
-  bottomStones: 5,
   style: STYLES.cyan,
 });

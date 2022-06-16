@@ -11,6 +11,8 @@ const Controls = observer(() => {
       board.setNumberOfRows(+e.currentTarget.value);
     else if (e.currentTarget.name === "topStones")
       board.setTopStones(+e.currentTarget.value);
+    else if (e.currentTarget.name === "bottomStones")
+      board.setBottomStones(+e.currentTarget.value);
   };
   const handleChangeTheme = (e: ChangeEvent<HTMLSelectElement>) => {
     board.setStyle(+e.currentTarget.value);
@@ -64,6 +66,18 @@ const Controls = observer(() => {
           className={css.input}
           type="number"
           value={board.topStones}
+          onChange={handleChangeValue}
+        />
+      </div>
+      <div className={css.block}>
+        <label htmlFor="bottomStones" className={css.label}>
+          Bottom stones
+        </label>
+        <input
+          name="bottomStones"
+          className={css.input}
+          type="number"
+          value={board.bottomStones}
           onChange={handleChangeValue}
         />
       </div>
