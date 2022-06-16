@@ -1,0 +1,12 @@
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem;
+  margin-top: auto;
+  font-size: 1rem;
+}
+
+.link {
+  margin-left: 5px;
+  color: rgb(16, 131, 157);
+}
