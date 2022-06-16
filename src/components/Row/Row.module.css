@@ -15,6 +15,7 @@
 .BottomStones {
   display: flex;
   flex-direction: column-reverse;
+  justify-content: flex-end;
   position: absolute;
   top: 6.5rem;
   left: 3px;

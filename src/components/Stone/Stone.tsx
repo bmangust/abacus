@@ -17,15 +17,23 @@ const Stone = ({
   numberOfStonesInRow,
 }: Props) => {
   const getActive = (): string => {
+    let classname = "";
     if (topValue !== undefined && topValue < 1) return "";
     else if (topValue !== undefined && topValue < 2 && index === 0)
-      return css.active;
+      classname = css.active;
     else if (
       bottomValue !== undefined &&
       numberOfStonesInRow - bottomValue === index + 1
     )
-      return css.active;
-    else return "";
+      classname = css.active;
+    // console.log({
+    //   topValue,
+    //   bottomValue,
+    //   numberOfStonesInRow,
+    //   index,
+    //   classname,
+    // });
+    return classname;
   };
 
   return (

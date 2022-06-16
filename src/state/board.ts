@@ -8,49 +8,52 @@ export enum STYLES {
 
 export interface BoardProps {
   numberOfRows?: number;
-  state?: number;
-  topStones?: 0 | 1 | 2;
+  value?: number;
+  topStones?: 1 | 2;
   bottomStones?: number;
   style?: STYLES;
 }
 
 class Board {
-  state: number;
+  numberOfRows: number;
+  value: number;
+  style: STYLES;
+  topStones?: 1 | 2;
+  bottomStones?: number;
   rows: Row[];
-  style: number;
-  constructor({
-    numberOfRows,
-    state,
-    topStones = 1,
-    bottomStones = 4,
-    style = STYLES.brown,
-  }: BoardProps) {
-    console.log({ state, rows: numberOfRows || this.numberOfRows });
-    this.state = state || 0;
-    this.rows = new Array(numberOfRows || this.numberOfRows).fill(0).map(
-      (_, i) =>
-        new Row({
-          topStones,
-          bottomStones,
-          value: Math.floor(
-            (this.state % Math.pow(10, i + 1)) / Math.pow(10, i)
-          ),
-          style,
-        })
+  constructor(props: BoardProps) {
+    this.value = props.value || 0;
+    this.numberOfRows = Math.max(
+      props.numberOfRows || 0,
+      this.getNumberOfRows()
     );
-    this.state = state || 0;
-    this.style = style;
+    this.topStones = props.topStones;
+    this.bottomStones = props.bottomStones;
+    this.style = props.style || STYLES.brown;
+    this.rows = this.getRows(this);
     makeAutoObservable(this);
   }
 
-  get numberOfRows() {
+  private getRows(board: Board) {
+    return new Array(board.numberOfRows).fill(0).map(
+      (_, i) =>
+        new Row({
+          ...board,
+          value: Math.floor(
+            (this.value % Math.pow(10, i + 1)) / Math.pow(10, i)
+          ),
+        })
+    );
+  }
+
+  /** return number of digits of board.value */
+  getNumberOfRows() {
     let rows = 1;
-    let value = this.state;
+    let value = this.value;
     while (value > 10) {
       rows += 1;
       value = Math.floor(value / 10);
     }
-    console.log(rows);
     return rows;
   }
 
@@ -59,18 +62,32 @@ class Board {
     this.rows.forEach((row) => row.updateStyle(style));
   }
 
+  setValue(value: number) {
+    this.value = value;
+    this.rows = this.getRows({
+      ...this,
+      value,
+    });
+  }
+
+  setNumberOfRows(n: number) {
+    this.rows = this.getRows({
+      ...this,
+      numberOfRows: n,
+    });
+  }
+
   add(value: number) {
-    this.state += value;
+    this.value += value;
   }
 
   subtract(value: number) {
-    this.state -= value;
+    this.value -= value;
   }
 }
 
 export const board = new Board({
-  state: 13,
+  value: 123456789,
   numberOfRows: 4,
-  topStones: 1,
   style: STYLES.cyan,
 });
